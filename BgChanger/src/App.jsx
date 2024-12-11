@@ -13,7 +13,8 @@ function App() {
   return (
     <div className="w-full h-screen duration-200" style={{backgroundColor:color, width:"100%"}} >
       {/* Buttons container */}
-      <div className="absolute bottom-0 left-0 w-full flex flex-wrap justify-center bg-gray-100 py-4">
+      <div className="fixed flex flex-wrap justify-center bottom-12 inset-x-0 px-2">
+      <div className=" flex flex-wrap justify-center gap-3 shadow-lg bg-white px-4 py-1 rounded-3xl">
         <Button name="RED" onClick={changeColor} />
         <Button name="GREEN" onClick={changeColor} />
         <Button name="BLUE" onClick={changeColor} />
@@ -25,6 +26,7 @@ function App() {
         <Button name="LAVENDER" onClick={changeColor} />
         <Button name="WHITE" onClick={changeColor} />
         <Button name="BLACK" onClick={changeColor} />
+      </div>
       </div>
     </div>
   );
