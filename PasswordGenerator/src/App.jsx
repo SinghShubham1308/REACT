@@ -32,7 +32,7 @@ function App() {
         // alert("Password copied to clipboard!");
         setTimeout(() => setCopy("Copy"), 2000);
       });
-    }
+    } 
   }, [password]);
 
   useEffect(() => {
