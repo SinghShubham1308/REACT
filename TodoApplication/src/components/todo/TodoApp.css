@@ -1,0 +1,84 @@
+/* General styles for the login container */
+.Login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Styling for the login form */
+.LoginForm {
+  background: #ffffff;
+  padding: 20px 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+/* Individual form fields */
+.LoginForm div {
+  margin-bottom: 20px;
+}
+
+/* Labels */
+.LoginForm label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 600;
+  font-size: 14px;
+  color: #333;
+}
+
+/* Input fields */
+.LoginForm input {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+/* Input hover and focus */
+.LoginForm input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.2);
+}
+
+/* Button styles */
+button[name="login"] {
+  width: 100%;
+  padding: 10px 15px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Button hover and active states */
+button[name="login"]:hover {
+  background-color: #0056b3;
+}
+
+button[name="login"]:active {
+  background-color: #003f7f;
+}
+
+/* Responsive design */
+@media (max-width: 480px) {
+  .LoginForm {
+    padding: 15px;
+  }
+
+  button[name="login"] {
+    font-size: 14px;
+  }
+}
