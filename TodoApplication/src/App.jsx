@@ -1,13 +1,14 @@
-import './App.css'
-import { TodoApp } from './components/todo/todoApp'
+import "./App.css";
+import { LoginComponent } from "./components/Login/LoginComponent";
+import { TodoApp } from "./components/Todos/TodoApp";
+
 function App() {
-
-
   return (
     <>
-    <TodoApp/>
+      {/* <TodoApp/> */}
+      <LoginComponent />
     </>
-  )
+  );
 }
 
-export default App
+export default App;

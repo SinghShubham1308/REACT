@@ -82,3 +82,13 @@ button[name="login"]:active {
     font-size: 14px;
   }
 }
+
+.Welcome {
+  text-align: center;
+}
+
+.SuccessMessage {
+  color: green;
+  font-size: 18px;
+  margin-top: 10px;
+}

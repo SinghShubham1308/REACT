@@ -1,37 +1,32 @@
 import React, { useState } from "react";
-import "./TodoApp.css";
-export const TodoApp = () => {
-  return (
-    <div className="TodoApp">
-      Todo Management App
-      <LoginComponent />
-      {/* <WelcomeComponent /> */}
-    </div>
-  );
-};
+import { WelcomeComponent } from "../Welcome/WelcomeComponent";
+import { useNavigate } from "react-router";
 
-const LoginComponent = () => {
+export const LoginComponent = () => {
   const [username, setusername] = useState("");
   const [password, setpassword] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isInvalidUser, setIsInvalidUser] = useState(false);
+  const navigate = useNavigate();
   const handleLogin = () => {
     if (username === "SinghShubham" && password === "TodoApp") {
       setIsAuthenticated(true); // Mark as authenticated
+      navigate(`/welcome/${username}`);
     } else {
-      alert("Invalid credentials");
+      setIsInvalidUser(true); // Mark as unauthorised
     }
   };
 
   if (isAuthenticated) {
     return <WelcomeComponent />; // Render WelcomeComponent if authenticated
   }
+
   return (
-    <div className="Login">
-      <div className="ErrorMessage">Login Failed</div>
+    <div className="LoginComponent">
       Login Component
       <div className="LoginForm">
         <div>
-          <label htmlFor="">User Name</label>
+          <label htmlFor="username">User Name</label>
           <input
             type="text"
             name="username"
@@ -40,34 +35,31 @@ const LoginComponent = () => {
               // console.log(e.target.value);
 
               setusername(e.target.value);
+              if (isInvalidUser) setIsInvalidUser(false);
             }}
+            className={isInvalidUser ? "inputError" : ""}
           />
         </div>
         <div>
-          <label htmlFor="">Password</label>
+          <label htmlFor="password">Password</label>
           <input
             type="password"
             name="password"
             value={password}
             onChange={(e) => {
               setpassword(e.target.value);
+              if (isInvalidUser) setIsInvalidUser(false); // Clear error on typing
             }}
+            className={isInvalidUser ? "inputError" : ""}
           />
         </div>
       </div>
+      {isInvalidUser && <div className="ErrorMessage">Invalid credentials</div>}
       <div>
         <button type="button" name="login" onClick={handleLogin}>
           Login
         </button>
       </div>
-    </div>
-  );
-};
-
-const WelcomeComponent = () => {
-  return (
-    <div className="Welcome">
-      <div className="SuccessMessage"> Successfully Logged In </div>
     </div>
   );
 };
