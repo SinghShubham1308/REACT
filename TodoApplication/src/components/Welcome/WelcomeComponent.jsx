@@ -1,12 +1,15 @@
 import React from "react";
-import { useParams } from "react-router";
+import {Link, useParams } from "react-router-dom";
 
 export const WelcomeComponent = () => {
-  const {username} = useParams();
-    return (
-      <div className="WelcomeComponent">
-        <div className="SuccessMessage"> Welcome {username} </div>
+  const { username } = useParams();
+  return (
+    <div className="WelcomeComponent">
+      <h2> Welcome {username} </h2>
+      <div>
+        Manage your Todos <Link to ="/todos"> todos</Link>
+       
       </div>
-    );
-  };
-  
+    </div>
+  );
+};

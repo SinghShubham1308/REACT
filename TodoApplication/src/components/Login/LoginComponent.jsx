@@ -1,64 +1,86 @@
 import React, { useState } from "react";
-import { WelcomeComponent } from "../Welcome/WelcomeComponent";
 import { useNavigate } from "react-router";
 
-export const LoginComponent = () => {
+export const LoginComponent = ({ onClose }) => {
   const [username, setusername] = useState("");
   const [password, setpassword] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isInvalidUser, setIsInvalidUser] = useState(false);
   const navigate = useNavigate();
-  const handleLogin = () => {
+
+  const handleLogin = (e) => {
+    e.preventDefault();  // Prevent form submission page reload
     if (username === "SinghShubham" && password === "TodoApp") {
-      setIsAuthenticated(true); // Mark as authenticated
+      setIsAuthenticated(true); 
       navigate(`/welcome/${username}`);
     } else {
-      setIsInvalidUser(true); // Mark as unauthorised
+      setIsInvalidUser(true);
     }
   };
 
-  if (isAuthenticated) {
-    return <WelcomeComponent />; // Render WelcomeComponent if authenticated
-  }
-
   return (
-    <div className="LoginComponent">
-      Login Component
-      <div className="LoginForm">
-        <div>
-          <label htmlFor="username">User Name</label>
-          <input
-            type="text"
-            name="username"
-            value={username}
-            onChange={(e) => {
-              // console.log(e.target.value);
+    <div className="LoginComponent d-flex justify-content-center align-items-center vh-100">
+      <div className="form-signin shadow p-4 bg-light rounded" style={{ maxWidth: "400px", width: "100%" }}>
+        <form onSubmit={handleLogin}>
+          <img
+            className="mb-4 mx-auto d-block"
+            src="https://getbootstrap.com/docs/5.3/assets/brand/bootstrap-logo.svg"
+            alt=""
+            width="72"
+            height="57"
+          />
+          <h1 className="h3 mb-3 fw-normal text-center">Please sign in</h1>
 
-              setusername(e.target.value);
-              if (isInvalidUser) setIsInvalidUser(false);
-            }}
-            className={isInvalidUser ? "inputError" : ""}
-          />
-        </div>
-        <div>
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            name="password"
-            value={password}
-            onChange={(e) => {
-              setpassword(e.target.value);
-              if (isInvalidUser) setIsInvalidUser(false); // Clear error on typing
-            }}
-            className={isInvalidUser ? "inputError" : ""}
-          />
-        </div>
-      </div>
-      {isInvalidUser && <div className="ErrorMessage">Invalid credentials</div>}
-      <div>
-        <button type="button" name="login" onClick={handleLogin}>
-          Login
-        </button>
+          <div className="form-floating mb-3">
+            <input
+              type="text"
+              className={`form-control ${isInvalidUser ? "border-danger" : ""}`}
+              id="floatingInput"
+              placeholder="Username"
+              value={username}
+              onChange={(e) => {
+                setusername(e.target.value);
+                if (isInvalidUser) setIsInvalidUser(false);
+              }}
+            />
+            <label htmlFor="floatingInput">Username</label>
+          </div>
+
+          <div className="form-floating mb-3">
+            <input
+              type="password"
+              className={`form-control ${isInvalidUser ? "border-danger" : ""}`}
+              id="floatingPassword"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => {
+                setpassword(e.target.value);
+                if (isInvalidUser) setIsInvalidUser(false);
+              }}
+            />
+            <label htmlFor="floatingPassword">Password</label>
+          </div>
+
+          <div className="form-check text-start mb-3">
+            <input
+              className="form-check-input"
+              type="checkbox"
+              value="remember-me"
+              id="flexCheckDefault"
+            />
+            <label className="form-check-label" htmlFor="flexCheckDefault">
+              Remember me
+            </label>
+          </div>
+
+          {isInvalidUser && <div className="text-danger mb-3 text-center">Invalid credentials</div>}
+
+          <button className="btn btn-primary w-100 py-2" type="submit">
+            Sign in
+          </button>
+
+          <p className="mt-5 mb-3 text-body-secondary text-center">© 2017–2024</p>
+        </form>
       </div>
     </div>
   );

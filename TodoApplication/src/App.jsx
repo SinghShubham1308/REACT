@@ -1,13 +1,16 @@
 import "./App.css";
 import { LoginComponent } from "./components/Login/LoginComponent";
-import { TodoApp } from "./components/Todos/TodoApp";
-
+import {HeaderComponent} from "./components/Header/HeaderComponent"
+import {FooterComponent} from "./components/Footer/FooterComponent"
+import { Outlet } from "react-router";
+import { LoginContextProvider } from "./components/Context/LoginContextProvider";
 function App() {
   return (
-    <>
-      {/* <TodoApp/> */}
-      <LoginComponent />
-    </>
+    <LoginContextProvider>
+      <HeaderComponent />
+      <Outlet/>
+      <FooterComponent />
+    </LoginContextProvider>
   );
 }
 
