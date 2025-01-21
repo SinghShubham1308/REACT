@@ -3,6 +3,7 @@ import { AuthContext } from "./LoginContext";
 
 export const LoginContextProvider = ({ children }) => {
   const [isLogin, setIsLogin] = useState(false);
+  console.log("login",isLogin);
   function login(username, password) {
     if (username === "SinghShubham" && password === "TodoApp") {
       setIsLogin(true);
@@ -21,7 +22,7 @@ export const LoginContextProvider = ({ children }) => {
   }
 
   return (
-    <AuthContext.Provider value={{ isLogin, login, logout }}>
+    <AuthContext.Provider value={{isLogin, login, logout}}>
       {children}
     </AuthContext.Provider>
   );

@@ -7,7 +7,7 @@ export const HeaderComponent = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    logout();
+    loginContext.logout();
     navigate("/");
   };
 
