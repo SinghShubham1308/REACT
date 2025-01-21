@@ -1,17 +1,20 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router";
+import { useAuth } from "../Context/LoginContext";
 
-export const LoginComponent = ({ onClose }) => {
-  const [username, setusername] = useState("");
-  const [password, setpassword] = useState("");
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+export const LoginComponent = () => {
+  const [username, setUsername] = useState("SinghShubham");
+  const [password, setPassword] = useState("TodoApp");
   const [isInvalidUser, setIsInvalidUser] = useState(false);
+  const loginContext = useAuth();
+  console.log("context",loginContext);
+  
   const navigate = useNavigate();
 
   const handleLogin = (e) => {
-    e.preventDefault();  // Prevent form submission page reload
-    if (username === "SinghShubham" && password === "TodoApp") {
-      setIsAuthenticated(true); 
+    e.preventDefault(); // Prevent page reload
+    if (loginContext.login(username, password)) {
+      setIsInvalidUser(false);
       navigate(`/welcome/${username}`);
     } else {
       setIsInvalidUser(true);
@@ -39,7 +42,7 @@ export const LoginComponent = ({ onClose }) => {
               placeholder="Username"
               value={username}
               onChange={(e) => {
-                setusername(e.target.value);
+                setUsername(e.target.value);
                 if (isInvalidUser) setIsInvalidUser(false);
               }}
             />
@@ -54,7 +57,7 @@ export const LoginComponent = ({ onClose }) => {
               placeholder="Password"
               value={password}
               onChange={(e) => {
-                setpassword(e.target.value);
+                setPassword(e.target.value);
                 if (isInvalidUser) setIsInvalidUser(false);
               }}
             />
@@ -62,12 +65,7 @@ export const LoginComponent = ({ onClose }) => {
           </div>
 
           <div className="form-check text-start mb-3">
-            <input
-              className="form-check-input"
-              type="checkbox"
-              value="remember-me"
-              id="flexCheckDefault"
-            />
+            <input className="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault" />
             <label className="form-check-label" htmlFor="flexCheckDefault">
               Remember me
             </label>
