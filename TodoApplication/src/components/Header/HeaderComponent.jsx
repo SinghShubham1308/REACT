@@ -1,5 +1,6 @@
 import { useAuth } from "../Context/LoginContext";
 import { Link, useNavigate } from "react-router-dom";
+
 export const HeaderComponent = () => {
   const loginContext = useAuth();
   // const loginContext = useContext(AuthContext)
@@ -100,7 +101,11 @@ export const HeaderComponent = () => {
                   >
                     Login
                   </button>
-                  <button type="button" className="btn btn-warning">
+                  <button
+                    type="button"
+                    className="btn btn-warning"
+                    onClick={() => navigate("/signup")}
+                  >
                     Sign-up
                   </button>
                 </>
