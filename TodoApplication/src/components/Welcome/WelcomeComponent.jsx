@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { retreiveHello, retreiveHelloWorldBean, retreiveHelloWorldPathVariable } from "../../api/HelloWorld";
+import { retreiveTodo } from "../../api/TodoApi";
 
 export const WelcomeComponent = () => {
   const { username } = useParams();
@@ -23,7 +24,7 @@ export const WelcomeComponent = () => {
   }
 
   function retreiveHelloPathVariable() {
-    retreiveHelloWorldPathVariable()
+    retreiveHelloWorldPathVariable("Shubham")
       .then((response) => successfullResponse(response))
       .catch((error) => errorResponse(error))
       .finally(() => console.log("cleanup"));
@@ -44,7 +45,7 @@ export const WelcomeComponent = () => {
       <div>
         Manage your Todos <Link to="/todos"> todos</Link>
         <br />
-        <button className="btn btn-success" onClick={callHelloWorld}>
+        {/* <button className="btn btn-success" onClick={callHelloWorld}>
           Call Rest Api
         </button>
         <button className="btn btn-success" onClick={callHelloWorldBean}>
@@ -52,7 +53,7 @@ export const WelcomeComponent = () => {
         </button>
         <button className="btn btn-success" onClick={retreiveHelloPathVariable}>
           call Hello World Bean path variable
-        </button>
+        </button> */}
       </div>
       <div className="text-info">{message}</div>
     </div>

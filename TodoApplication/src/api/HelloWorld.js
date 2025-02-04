@@ -1,10 +1,13 @@
 import axios from "axios";
 
+const apiClient = axios.create({
+  baseURL: "http://localhost:9090"
+});
 export const retreiveHello = () =>
-  axios.get("http://localhost:9090/hello-world");
+  apiClient.get("/hello-world");
 
 export const retreiveHelloWorldBean = () =>
-  axios.get("http://localhost:9090/hello-world-bean");
+  apiClient.get("/hello-world-bean");
 
-export const retreiveHelloWorldPathVariable = () =>
-  axios.get("http://localhost:9090/hello-world/path-variable/Shubham");
+export const retreiveHelloWorldPathVariable = (username) =>
+  apiClient.get(`/hello-world/path-variable/${username}`);

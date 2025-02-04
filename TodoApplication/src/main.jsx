@@ -21,6 +21,7 @@ import "./index.css"; // Your custom styles if any
 import { LoginContextProvider } from "./components/Context/LoginContextProvider.jsx";
 import { useAuth } from "./components/Context/LoginContext.js";
 import { SignupForm } from "./components/Signup/Signup.jsx";
+import { UpdateTodoComponent } from "./components/UpdateTodo/UpdateTodoComponent.jsx";
 
 function AuthenticateRoute({ children }) {
   const auth = useAuth(); // Use the hook properly to get the authentication context
@@ -40,6 +41,7 @@ const router = createBrowserRouter(
         <Route index element={<HomeComponent />} /> {/* Default route */}
         <Route path="login" element={<LoginComponent />} />
         <Route path="signup" element={<SignupForm />} />
+        <Route path="/update/:id" element={<UpdateTodoComponent />} />
         <Route
           path="welcome/:username"
           element={
