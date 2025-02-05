@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -9,14 +9,14 @@ export const UpdateTodoComponent = () => {
   const { id } = useParams();
   const user = useAuth();
   const navigate = useNavigate();
-  
-  // Define Formik validation schema using Yup
+
+  // Validation Schema
   const validationSchema = Yup.object({
     description: Yup.string()
       .required("Description is required")
       .min(3, "Description should be at least 3 characters long"),
     targetDate: Yup.date().required("Target date is required"),
-  });npm
+  });
 
   // Formik setup
   const formik = useFormik({
@@ -27,16 +27,13 @@ export const UpdateTodoComponent = () => {
     },
     validationSchema,
     onSubmit: (values) => {
-      // Update todo when form is submitted
       updateTodoById(user.username, id, values)
-        .then(() => {
-          navigate("/todos"); // Redirect after success
-        })
+        .then(() => navigate("/todos")) // Redirect after success
         .catch((error) => console.log("Error updating todo:", error));
     },
   });
 
-  // Fetch todo on component mount
+  // Fetch data and set Formik values
   useEffect(() => {
     retreiveTodoWithId(user.username, id)
       .then((response) => {
@@ -44,11 +41,11 @@ export const UpdateTodoComponent = () => {
         formik.setValues({
           description,
           done,
-          targetDate: targetDate.split("T")[0], // Formatting date to match the input type
+          targetDate: targetDate ? targetDate.split("T")[0] : "",
         });
       })
       .catch((error) => console.log("Error fetching todo:", error));
-  }, [id, formik]);
+  }, [id]);
 
   return (
     <div className="container mt-5">
@@ -93,7 +90,7 @@ export const UpdateTodoComponent = () => {
             className="form-check-input"
             name="done"
             checked={formik.values.done}
-            onChange={() => formik.setFieldValue("done", !formik.values.done)}
+            onChange={formik.handleChange} // Use formik.handleChange directly
           />
           <label className="form-check-label">Completed</label>
         </div>
