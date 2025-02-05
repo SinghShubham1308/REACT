@@ -1,71 +1,114 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import {retreiveTodoWithId, updateTodoById } from "../../api/TodoApi";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { retreiveTodoWithId, updateTodoById } from "../../api/TodoApi";
+import { useAuth } from "../Context/LoginContext";
 
 export const UpdateTodoComponent = () => {
   const { id } = useParams();
+  const user = useAuth();
   const navigate = useNavigate();
-  const [todo, setTodo] = useState({
-    description: "",
-    done: false,
-    targetDate: "",
+  
+  // Define Formik validation schema using Yup
+  const validationSchema = Yup.object({
+    description: Yup.string()
+      .required("Description is required")
+      .min(3, "Description should be at least 3 characters long"),
+    targetDate: Yup.date().required("Target date is required"),
+  });npm
+
+  // Formik setup
+  const formik = useFormik({
+    initialValues: {
+      description: "",
+      done: false,
+      targetDate: "",
+    },
+    validationSchema,
+    onSubmit: (values) => {
+      // Update todo when form is submitted
+      updateTodoById(user.username, id, values)
+        .then(() => {
+          navigate("/todos"); // Redirect after success
+        })
+        .catch((error) => console.log("Error updating todo:", error));
+    },
   });
 
+  // Fetch todo on component mount
   useEffect(() => {
-    retreiveTodoWithId("SinghShubham", id)
-      .then((response) => setTodo(response.data))
-      .catch((error) => console.log("Error fetching todo:", error));
-  }, [id]);
-
-  function handleChange(event) {
-    setTodo({ ...todo, [event.target.name]: event.target.value });
-  }
-
-  function handleSubmit(event) {
-    event.preventDefault();
-    updateTodoById("SinghShubham", id, todo)
-      .then(() => {
-        navigate("/"); // Go back to the list after updating
+    retreiveTodoWithId(user.username, id)
+      .then((response) => {
+        const { description, done, targetDate } = response.data;
+        formik.setValues({
+          description,
+          done,
+          targetDate: targetDate.split("T")[0], // Formatting date to match the input type
+        });
       })
-      .catch((error) => console.log("Error updating todo:", error));
-  }
+      .catch((error) => console.log("Error fetching todo:", error));
+  }, [id, formik]);
 
   return (
     <div className="container mt-5">
       <h2>Update Todo</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={formik.handleSubmit}>
+        {/* Description Input */}
         <div className="mb-3">
           <label className="form-label">Description</label>
           <input
             type="text"
             className="form-control"
             name="description"
-            value={todo.description}
-            onChange={handleChange}
+            value={formik.values.description}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
           />
+          {formik.touched.description && formik.errors.description && (
+            <div className="text-danger">{formik.errors.description}</div>
+          )}
         </div>
+
+        {/* Target Date Input */}
         <div className="mb-3">
           <label className="form-label">Target Date</label>
           <input
             type="date"
             className="form-control"
             name="targetDate"
-            value={todo.targetDate}
-            onChange={handleChange}
+            value={formik.values.targetDate}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
           />
+          {formik.touched.targetDate && formik.errors.targetDate && (
+            <div className="text-danger">{formik.errors.targetDate}</div>
+          )}
         </div>
+
+        {/* Done Checkbox */}
         <div className="mb-3 form-check">
           <input
             type="checkbox"
             className="form-check-input"
             name="done"
-            checked={todo.done}
-            onChange={() => setTodo({ ...todo, done: !todo.done })}
+            checked={formik.values.done}
+            onChange={() => formik.setFieldValue("done", !formik.values.done)}
           />
           <label className="form-check-label">Completed</label>
         </div>
-        <button type="submit" className="btn btn-success">Save</button>
-        <button type="button" className="btn btn-secondary ms-2" onClick={() => navigate("/")}>
+
+        {/* Submit Button */}
+        <button type="submit" className="btn btn-success" disabled={!formik.isValid}>
+          Save
+        </button>
+
+        {/* Cancel Button */}
+        <button
+          type="button"
+          className="btn btn-secondary ms-2"
+          onClick={() => navigate("/todos")}
+        >
           Cancel
         </button>
       </form>

@@ -1,1 +1,13 @@
 @import 'bootstrap/dist/css/bootstrap.min.css';
+.add-todo-btn {
+  padding: 10px 15px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+.add-todo-btn:hover {
+  background-color: #218838;
+  color: white;
+}

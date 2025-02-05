@@ -18,9 +18,9 @@ export const ListTodosComponent = () => {
     today.getDate()
   );
   const [todos, setTodos] = useState([]);
-  useEffect(() => {
-    refreshTodo();
-  }, []);
+ useEffect(() => {
+  if (User.username) refreshTodo();
+}, [User.username]);
 
   function refreshTodo() {
     retreiveTodo(User.username)
@@ -32,27 +32,13 @@ export const ListTodosComponent = () => {
   }
 
   function deleteById(id) {
-    console.log("clicked");
     deleteTodoById(User.username, id)
-      .then((response) => {
-        setMessage("Todo with id ", id, "has been deleted successfully");
+      .then(() => {
         setMessage(`Todo with ID ${id} deleted successfully!`);
         refreshTodo();
-        // Remove message after 3 seconds
-        setTimeout(() => {
-          setMessage("");
-        }, 3000);
+        setTimeout(() => setMessage(""), 3000);
       })
-      .catch((error) => console.log("Error fetching todos:", error));
-  }
-  function updateById(id) {
-    console.log("clicked");
-    updateTodoById(User.username, id)
-      .then((response) => {
-        console.log("deleted", response, "id ", id);
-        refreshTodo();
-      })
-      .catch((error) => console.log("Error fetching todos:", error));
+      .catch((error) => console.error("Error deleting todo:", error));
   }
 
   function updateTodo(id) {
@@ -123,70 +109,62 @@ export const ListTodosComponent = () => {
   ];
 
   return (
-    <div className="ListTodosComponent">
-      <h2 className="text-center mb-4">Todo List</h2>
-      {/* Success Message Display with Close Button */}
-      {message && (
-        <div
-          className="alert alert-success alert-dismissible fade show"
-          role="alert"
-        >
-          {message}
-          <button
-            type="button"
-            className="btn-close"
-            onClick={() => setMessage("")}
-          ></button>
-        </div>
-      )}
-      <div className="table-responsive">
-        <table className="table table-striped table-bordered">
-          <thead className="table-dark">
-            <tr>
-              {/* <th>ID</th> */}
-              <th>Description</th>
-              <th>Is Completed</th>
-              <th>Target Date</th>
-              <th>Delete</th>
-              <th>Update</th>
-            </tr>
-          </thead>
-          <tbody>
-            {todos.length > 0 ? (
-              todos.map((todo) => (
-                <tr key={todo.id}>
-                  {/* <td>{todo.id}</td> */}
-                  <td>{todo.description}</td>
-                  <td>{todo.done ? "Yes" : "No"}</td>
-                  <td>{new Date(todo.targetDate).toLocaleDateString()}</td>
-                  <td>
-                    <button
-                      className="btn btn-warning"
-                      onClick={() => deleteById(todo.id)}
-                    >
-                      delete
-                    </button>
-                  </td>
-                  <td>
-                    <button
-                      className="btn btn-primary"
-                      onClick={() => updateTodo(todo.id)}
-                    >
-                      Update
-                    </button>
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="4" className="text-center">
-                  No Todos Found
+  <div className="ListTodosComponent container mt-4">
+    <div className="d-flex justify-content-between align-items-center mb-3">
+      <h2 className="text-center flex-grow-1">Todo List</h2>
+      <button className="btn btn-success add-todo-btn" onClick={() => navigate("/addTodo")}>
+        + Add Todo
+      </button>
+    </div>
+
+    {/* Success Message Display */}
+    {message && (
+      <div className="alert alert-success alert-dismissible fade show" role="alert">
+        {message}
+        <button type="button" className="btn-close" onClick={() => setMessage("")}></button>
+      </div>
+    )}
+
+    <div className="table-responsive">
+      <table className="table table-striped table-bordered">
+        <thead className="table-dark">
+          <tr>
+            <th>Description</th>
+            <th>Is Completed</th>
+            <th>Target Date</th>
+            <th>Delete</th>
+            <th>Update</th>
+          </tr>
+        </thead>
+        <tbody>
+          {todos.length > 0 ? (
+            todos.map((todo) => (
+              <tr key={todo.id}>
+                <td>{todo.description}</td>
+                <td>{todo.done ? "Yes" : "No"}</td>
+                <td>{new Date(todo.targetDate).toLocaleDateString()}</td>
+                <td>
+                  <button className="btn btn-warning" onClick={() => deleteById(todo.id)}>
+                    Delete
+                  </button>
+                </td>
+                <td>
+                  <button className="btn btn-primary" onClick={() => updateTodo(todo.id)}>
+                    Update
+                  </button>
                 </td>
               </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="5" className="text-center">
+                No Todos Found
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
     </div>
-  );
-};
+  </div>
+);
+}

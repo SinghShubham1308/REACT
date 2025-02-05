@@ -22,6 +22,7 @@ import { LoginContextProvider } from "./components/Context/LoginContextProvider.
 import { useAuth } from "./components/Context/LoginContext.js";
 import { SignupForm } from "./components/Signup/Signup.jsx";
 import { UpdateTodoComponent } from "./components/UpdateTodo/UpdateTodoComponent.jsx";
+import { AddTodoComponent } from "./components/AddTodo/AddTodoComponent.jsx";
 
 function AuthenticateRoute({ children }) {
   const auth = useAuth(); // Use the hook properly to get the authentication context
@@ -42,6 +43,7 @@ const router = createBrowserRouter(
         <Route path="login" element={<LoginComponent />} />
         <Route path="signup" element={<SignupForm />} />
         <Route path="/update/:id" element={<UpdateTodoComponent />} />
+        <Route path="/addTodo" element={<AddTodoComponent/>} />
         <Route
           path="welcome/:username"
           element={

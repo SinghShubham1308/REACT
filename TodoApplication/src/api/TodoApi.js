@@ -3,6 +3,11 @@ import axios from "axios";
 const apiClient = axios.create({
   baseURL: "http://localhost:9090",
 });
+
+export const addTodoApi = (username, todo) => {
+  return apiClient.post(`/user/${username}/todos`, todo);
+};
+
 export const retreiveTodo = (username) =>
   apiClient.get(`/user/${username}/todos`);
 
