@@ -3,18 +3,30 @@ import { useNavigate } from "react-router";
 import { useAuth } from "../Context/LoginContext";
 
 export const LoginComponent = () => {
-  const [username, setUsername] = useState("SinghShubham");
-  const [password, setPassword] = useState("TodoApp");
+  const [username, setUsername] = useState("SinghShubham1308");
+  const [password, setPassword] = useState("todoApp");
   const [isInvalidUser, setIsInvalidUser] = useState(false);
   const loginContext = useAuth();
-  console.log("context",loginContext);
-  
+  console.log("context", loginContext);
+
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
-    e.preventDefault(); // Prevent page reload
-    if (loginContext.login(username, password)) {
-      setIsInvalidUser(false);
+  // const handleLogin = (e) => {
+  //   e.preventDefault(); // Prevent page reload
+  //   if (loginContext.login(username, password)) {
+  //     setIsInvalidUser(false);
+  //     navigate(`/welcome/${username}`);
+  //   } else {
+  //     setIsInvalidUser(true);
+  //   }
+  // };
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setIsInvalidUser(false); // Reset error state before login attempt
+
+    const success = await loginContext.login(username, password);
+
+    if (success) {
       navigate(`/welcome/${username}`);
     } else {
       setIsInvalidUser(true);
@@ -23,7 +35,10 @@ export const LoginComponent = () => {
 
   return (
     <div className="LoginComponent d-flex justify-content-center align-items-center vh-100">
-      <div className="form-signin shadow p-4 bg-light rounded" style={{ maxWidth: "400px", width: "100%" }}>
+      <div
+        className="form-signin shadow p-4 bg-light rounded"
+        style={{ maxWidth: "400px", width: "100%" }}
+      >
         <form onSubmit={handleLogin}>
           <img
             className="mb-4 mx-auto d-block"
@@ -43,7 +58,7 @@ export const LoginComponent = () => {
               value={username}
               onChange={(e) => {
                 setUsername(e.target.value);
-                if (isInvalidUser) setIsInvalidUser(false);
+                setIsInvalidUser(false); // ✅ Reset error on user typing
               }}
             />
             <label htmlFor="floatingInput">Username</label>
@@ -58,26 +73,37 @@ export const LoginComponent = () => {
               value={password}
               onChange={(e) => {
                 setPassword(e.target.value);
-                if (isInvalidUser) setIsInvalidUser(false);
+                setIsInvalidUser(false); // ✅ Reset error on user typing
               }}
             />
             <label htmlFor="floatingPassword">Password</label>
           </div>
 
           <div className="form-check text-start mb-3">
-            <input className="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault" />
+            <input
+              className="form-check-input"
+              type="checkbox"
+              value="remember-me"
+              id="flexCheckDefault"
+            />
             <label className="form-check-label" htmlFor="flexCheckDefault">
               Remember me
             </label>
           </div>
 
-          {isInvalidUser && <div className="text-danger mb-3 text-center">Invalid credentials</div>}
+          {isInvalidUser && (
+            <div className="text-danger mb-3 text-center">
+              Invalid credentials
+            </div>
+          )}
 
           <button className="btn btn-primary w-100 py-2" type="submit">
             Sign in
           </button>
 
-          <p className="mt-5 mb-3 text-body-secondary text-center">© 2017–2024</p>
+          <p className="mt-5 mb-3 text-body-secondary text-center">
+            © 2017–2024
+          </p>
         </form>
       </div>
     </div>

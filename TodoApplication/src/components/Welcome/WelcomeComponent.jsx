@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { retreiveHello, retreiveHelloWorldBean, retreiveHelloWorldPathVariable } from "../../api/HelloWorld";
-import { retreiveTodo } from "../../api/TodoApi";
+import { executeBasicAuthentication, retreiveTodo } from "../../api/TodoApi";
 
 export const WelcomeComponent = () => {
   const { username } = useParams();
@@ -50,8 +50,8 @@ export const WelcomeComponent = () => {
         </button>
         <button className="btn btn-success" onClick={callHelloWorldBean}>
           call Hello World Bean
-        </button>
-        <button className="btn btn-success" onClick={retreiveHelloPathVariable}>
+        </button> 
+        <button className="btn btn-success" onClick={executeBasicAuthentication}>
           call Hello World Bean path variable
         </button> */}
       </div>
