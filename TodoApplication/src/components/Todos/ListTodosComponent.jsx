@@ -9,6 +9,7 @@ import { useAuth } from "../Context/LoginContext";
 
 export const ListTodosComponent = () => {
   const User = useAuth();
+  const token = User.token;
   const navigate = useNavigate();
   const [message, setMessage] = useState("");
   const today = new Date();
@@ -23,7 +24,7 @@ export const ListTodosComponent = () => {
 }, [User.username]);
 
   function refreshTodo() {
-    retreiveTodo(User.username)
+    retreiveTodo(User.username,token)
       .then((response) => {
         console.log("Fetched", response);
         setTodos(response.data);
@@ -32,7 +33,7 @@ export const ListTodosComponent = () => {
   }
 
   function deleteById(id) {
-    deleteTodoById(User.username, id)
+    deleteTodoById(User.username, id,token)
       .then(() => {
         setMessage(`Todo with ID ${id} deleted successfully!`);
         refreshTodo();
@@ -41,7 +42,7 @@ export const ListTodosComponent = () => {
       .catch((error) => console.error("Error deleting todo:", error));
   }
 
-  function updateTodo(id) {
+  function updateTodo(id,token) {
     navigate(`/update/${id}`); // Navigate to the update page
   }
 

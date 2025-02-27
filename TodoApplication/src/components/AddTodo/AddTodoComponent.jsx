@@ -5,6 +5,7 @@ import { useAuth } from "../Context/LoginContext";
 
 export const AddTodoComponent = () => {
   const User = useAuth();
+
   const navigate = useNavigate();
   
   const [todo, setTodo] = useState({
@@ -28,7 +29,7 @@ export const AddTodoComponent = () => {
       return;
     }
 
-    addTodoApi(User.username, todo)
+    addTodoApi(User.username, todo,User.token)
       .then(() => {
         navigate("/todos"); // Navigate back to the todo list
       })

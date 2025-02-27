@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { AuthContext } from "./LoginContext";
-import { executeBasicAuthentication } from "../../api/TodoApi";
+import { apiClient } from "../../api/apiClient";
+import { executeBasicAuthentication, executeJwtAuthentication } from "./AuthenticationApiService";
 
 export const LoginContextProvider = ({ children }) => {
   const [isLogin, setIsLogin] = useState(false);
   const [username, setUsername] = useState(null);
+  const [token, setToken] = useState(null);
   console.log("login", isLogin);
   console.log("username ", username);
 
@@ -22,27 +24,59 @@ export const LoginContextProvider = ({ children }) => {
   //   }
   // }
 
+  // async function login(username, password) {
+  //   const token = "Basic " + window.btoa(username + ":" + password);
+  //   console.log("Generated Token: ", token);
+  //   try {
+  //     const response = await executeBasicAuthentication(token);
+  //     if (response.status == 200) {
+  //       console.log("Authentication Success:", response);
+  //       setIsLogin(true);
+  //       setUsername(username);
+  //       apiClient.interceptors.request.use(
+  //         (config) =>{
+  //           console.log("intercepting and adding a token");
+  //           config.headers.Authorization=token
+  //           return config
+  //         }
+  //       )
+  //       // setToken(token);
+  //       // localStorage.setItem("isLoggedIn", "true"); // Persist login state
+  //       return true;
+  //     } else {
+  //       console.log("Authentication Failed:", error);
+  //       logout();
+  //       // localStorage.removeItem("isLoggedIn");
+  //       return false;
+  //     }
+  //   } catch (error) {
+  //     logout();
+  //     return false;
+  //   }
+  // }
+
   async function login(username, password) {
-    const token = "Basic " + window.btoa(username + ":" + password);
-    console.log("Generated Token: ", token);
     try {
-      const response = await executeBasicAuthentication(token);
+      const response = await executeJwtAuthentication(username,password);
       if (response.status == 200) {
         console.log("Authentication Success:", response);
+        const jwtToken = "Bearer "+response.data.token;
         setIsLogin(true);
         setUsername(username);
-        localStorage.setItem("isLoggedIn", "true"); // Persist login state
+        setToken(jwtToken);
+        apiClient.interceptors.request.use((config) => {
+          console.log("intercepting and adding a token");
+          config.headers.Authorization = token;
+          return config;
+        });
         return true;
       } else {
         console.log("Authentication Failed:", error);
-        setIsLogin(false);
-        setUsername(null);
-        localStorage.removeItem("isLoggedIn");
+        logout();
         return false;
       }
     } catch (error) {
-      setIsLogin(false);
-      setUsername(null);
+      logout();
       return false;
     }
   }
@@ -50,11 +84,12 @@ export const LoginContextProvider = ({ children }) => {
   function logout() {
     setIsLogin(false);
     setUsername(null);
-    localStorage.removeItem("isLoggedIn");
+    // setToken(null);
+    // localStorage.removeItem("isLoggedIn");
   }
 
   return (
-    <AuthContext.Provider value={{ isLogin, login, logout, username }}>
+    <AuthContext.Provider value={{ isLogin, login, logout, username, token }}>
       {children}
     </AuthContext.Provider>
   );

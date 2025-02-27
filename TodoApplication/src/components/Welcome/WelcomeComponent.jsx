@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import axios from "axios";
 import { retreiveHello, retreiveHelloWorldBean, retreiveHelloWorldPathVariable } from "../../api/HelloWorld";
-import { executeBasicAuthentication, retreiveTodo } from "../../api/TodoApi";
 
 export const WelcomeComponent = () => {
   const { username } = useParams();
@@ -15,7 +13,7 @@ export const WelcomeComponent = () => {
     console.log("called");
   }
 
-  function callHelloWorldBean() {
+  function callHelloWorldBean() { 
     retreiveHelloWorldBean()
       .then((response) => successfullResponse(response))
       .catch((error) => errorResponse(error))
