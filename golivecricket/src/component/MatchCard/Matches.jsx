@@ -54,9 +54,9 @@ export const HomePage = () => {
 
   return (
     <div className="p-4 grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-      {matches.map((match, index) => (
-        <MatchCard key={index} match={match} />
-      ))}
+      {loading
+        ? [...Array(6)].map((_, i) => <MatchCard key={i} />)
+        : matches.map((match, index) => <MatchCard key={index} match={match} />)}
     </div>
   );
-};
+};  

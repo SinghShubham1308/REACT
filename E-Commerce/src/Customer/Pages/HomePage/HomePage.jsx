@@ -12,8 +12,8 @@ export const HomePage = () => {
       </div>
 
       {/* Home Sections */}
-      <div className="max-w-screen- mx-auto py-20 flex flex-col gap-16">
-        <h2 className="text-3xl font-bold text-gray-800">Featured Collections</h2>
+      <div className="space-y-10 py-20 flex flex-col justify-center px-5 lg">
+        <h2 className="text-3xl font-bold text-gray-800">Men's kurta</h2>
         <HomeSectionCarousel />
         <HomeSectionCarousel />
         <HomeSectionCarousel />

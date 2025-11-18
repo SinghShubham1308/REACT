@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { registerUser } from "../Context/RegisterUser";
+import { Navigate, useNavigate } from "react-router-dom";
 
 export const SignupForm = () => {
   const [formData, setFormData] = useState({
@@ -7,6 +9,7 @@ export const SignupForm = () => {
     password: "",
     confirmPassword: "",
   });
+  const navigate = useNavigate();
 
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
@@ -39,7 +42,14 @@ export const SignupForm = () => {
     if (Object.keys(formValidationErrors).length === 0) {
       setSubmitted(true);
       console.log("Form submitted successfully:", formData);
-      // Here you can send form data to backend API
+      registerUser(formData)
+        .then(() => {
+          alert("Registration successful!");
+          navigate("/login"); // or any redirect
+        })
+        .catch((error) => {
+          alert("Registration failed: " + error.response.data);
+        });
     } else {
       setErrors(formValidationErrors);
     }

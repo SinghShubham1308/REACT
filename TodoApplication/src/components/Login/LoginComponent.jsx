@@ -3,8 +3,8 @@ import { useNavigate } from "react-router";
 import { useAuth } from "../Context/LoginContext";
 
 export const LoginComponent = () => {
-  const [username, setUsername] = useState("SinghShubham1308");
-  const [password, setPassword] = useState("todoApp");
+  const [username, setUsername] = useState("shubham");
+  const [password, setPassword] = useState("ms8u281");
   const [isInvalidUser, setIsInvalidUser] = useState(false);
   const loginContext = useAuth();
   console.log("context", loginContext);

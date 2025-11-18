@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import MatchCard from "./MatchCard";
 
 export const MatchList = ({ title, matches, loading }) => {
@@ -18,18 +18,32 @@ export const MatchList = ({ title, matches, loading }) => {
 };
 // A skeleton loader component to improve user experience
 const SkeletonCard = () => (
-  <div className="flex-shrink-0 w-80 h-48 bg-white dark:bg-slate-800 rounded-lg shadow-md p-4 animate-pulse">
-    <div className="h-4 bg-gray-200 dark:bg-slate-700 rounded w-3/4 mb-4"></div>
-    <div className="space-y-3">
-      <div className="flex items-center space-x-2">
-        <div className="h-6 w-6 rounded-full bg-gray-200 dark:bg-slate-700"></div>
-        <div className="h-4 bg-gray-200 dark:bg-slate-700 rounded w-1/2"></div>
+  <div className="w-72 p-4 border rounded-lg shadow bg-white dark:bg-gray-800 animate-pulse">
+    {/* Tournament Name */}
+    <div className="h-4 bg-gray-300 dark:bg-gray-600 rounded w-40 mb-2"></div>
+
+    {/* Venue & Date */}
+    <div className="h-3 bg-gray-300 dark:bg-gray-600 rounded w-56 mb-4"></div>
+
+    {/* Team 1 */}
+    <div className="flex items-center justify-between mb-2">
+      <div className="flex items-center space-x-3">
+        <div className="w-6 h-6 bg-gray-300 dark:bg-gray-600 rounded-full"></div>
+        <div className="h-3 bg-gray-300 dark:bg-gray-600 rounded w-20"></div>
       </div>
-      <div className="flex items-center space-x-2">
-        <div className="h-6 w-6 rounded-full bg-gray-200 dark:bg-slate-700"></div>
-        <div className="h-4 bg-gray-200 dark:bg-slate-700 rounded w-1/2"></div>
-      </div>
+      <div className="h-3 bg-gray-300 dark:bg-gray-600 rounded w-12"></div>
     </div>
-    <div className="h-4 bg-gray-200 dark:bg-slate-700 rounded w-full mt-4"></div>
+
+    {/* Team 2 */}
+    <div className="flex items-center justify-between mb-4">
+      <div className="flex items-center space-x-3">
+        <div className="w-6 h-6 bg-gray-300 dark:bg-gray-600 rounded-full"></div>
+        <div className="h-3 bg-gray-300 dark:bg-gray-600 rounded w-20"></div>
+      </div>
+      <div className="h-3 bg-gray-300 dark:bg-gray-600 rounded w-12"></div>
+    </div>
+
+    {/* Match result */}
+    <div className="h-3 bg-gray-300 dark:bg-gray-600 rounded w-48"></div>
   </div>
 );

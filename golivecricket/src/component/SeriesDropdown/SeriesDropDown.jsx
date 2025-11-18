@@ -7,7 +7,7 @@ export const SeriesDropdown = () => {
   useEffect(() => {
     const fetchSeries = async () => {
       try {
-        const response = await fetch("http://localhost:8081/matches/series");
+        const response = await fetch("http://localhost:9091/matches/series");
         const data = await response.json();
         setSeries(data);
       } catch (error) {

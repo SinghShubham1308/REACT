@@ -7,7 +7,7 @@ export const executeBasicAuthentication = (token) =>
     }
   });
 
-  export const executeJwtAuthentication = (username,passeord) =>
-  apiClient.post(`/authentication`, 
-   {username,passeord
+  export const executeJwtAuthentication = (username,password) =>
+  apiClient.post(`/authenticate`, 
+   {username,password
   });
