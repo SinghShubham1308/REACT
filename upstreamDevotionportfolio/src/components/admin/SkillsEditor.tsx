@@ -53,7 +53,7 @@ export function SkillsEditor({ data, onChange }: SkillsEditorProps) {
         <Card key={categoryIndex}>
           <CardHeader>
             <div className="flex items-center justify-between">
-              <div className="space-y-1 flex-grow mr-4">
+              <div className="space-y-1 grow mr-4">
                 <Input
                   value={category.category}
                   onChange={(e) => handleCategoryChange(categoryIndex, e.target.value)}
@@ -73,7 +73,7 @@ export function SkillsEditor({ data, onChange }: SkillsEditorProps) {
             {category.skills.map((skill: any, skillIndex: number) => (
               <div key={skillIndex} className="p-4 border rounded-lg space-y-3">
                 <div className="flex items-center justify-between gap-4">
-                  <div className="flex-grow space-y-2">
+                  <div className="grow space-y-2">
                     <Label>Skill Name</Label>
                     <Input
                       value={skill.name}

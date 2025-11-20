@@ -33,9 +33,9 @@ export function Hero({ data }: HeroProps) {
             className="w-full h-full object-cover"
           />
         ) : (
-          <div className="w-full h-full bg-gradient-to-r from-primary/20 via-primary/10 to-primary/20" />
+          <div className="w-full h-full bg-linear-to-r from-primary/20 via-primary/10 to-primary/20" />
         )}
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-background" />
+        <div className="absolute inset-0 bg-linear-to-b from-transparent to-background" />
       </div>
 
       <div className="container mx-auto text-center relative z-10">
