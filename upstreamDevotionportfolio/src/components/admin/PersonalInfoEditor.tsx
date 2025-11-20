@@ -273,6 +273,8 @@ export function PersonalInfoEditor({
                 src={data.backgroundImage}
                 alt="Banner Preview"
                 className="w-48 h-24 rounded-md object-cover border-2"
+                height="40px"
+                width="80px"
               />
               <Button
                 type="button"

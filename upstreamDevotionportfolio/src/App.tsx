@@ -164,10 +164,7 @@ export default function App() {
       ) : (
         <>
           <Navigation />
-
-          {/* 4. FIX: Hum yahan check karenge ki data hai ya nahi */}
           {portfolioData ? (
-            // Agar data hai, toh sections dikhayein
             <>
               <div id="home">
                 <Hero data={portfolioData.personal} />
@@ -186,13 +183,12 @@ export default function App() {
               </div>
             </>
           ) : (
-            // Agar data 'null' hai, toh message dikhayein
             <div className="container mx-auto text-center py-40 min-h-screen">
               <h2 className="text-2xl font-semibold text-muted-foreground">
-                Portfolio data is not set up.
+                {/* Portfolio data is not set up. */}
               </h2>
               <p className="text-muted-foreground mt-2">
-                Please log in as admin to add your data.
+                {/* Please log in as admin to add your data. */}
               </p>
             </div>
           )}
