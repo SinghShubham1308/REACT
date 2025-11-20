@@ -82,7 +82,7 @@ export function AdminPanel({ data, setData, onClose }: AdminPanelProps) {
   );
   const [isSaving, setIsSaving] = useState(false);
 
-  const API_URL = "http://localhost:9090";
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:9090";
 
   const handleSave = async () => {
     setIsSaving(true);

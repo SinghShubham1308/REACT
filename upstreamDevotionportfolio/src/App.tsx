@@ -18,12 +18,12 @@ interface PersonalData {
   bio: string;
   email: string;
   phone: string;
-  country: string; 
+  country: string;
   state: string;
   github: string;
   linkedin: string;
-  profileImage:string;
-  backgroundImage:string;
+  profileImage: string;
+  backgroundImage: string;
 }
 
 interface AboutFeature {
@@ -64,7 +64,7 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const API_URL = "http://localhost:9090";
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:9090";
 
   useEffect(() => {
     const token = localStorage.getItem("authToken");
@@ -164,7 +164,7 @@ export default function App() {
       ) : (
         <>
           <Navigation />
-          
+
           {/* 4. FIX: Hum yahan check karenge ki data hai ya nahi */}
           {portfolioData ? (
             // Agar data hai, toh sections dikhayein

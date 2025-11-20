@@ -42,7 +42,7 @@ export function ProjectsEditor() {
   });
   const [techInput, setTechInput] = useState(""); // Tech input ke liye alag se state
 
-  const API_URL = "http://localhost:9090";
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:9090";
   const token = localStorage.getItem("authToken");
 
   // 1. Projects ko fetch karein

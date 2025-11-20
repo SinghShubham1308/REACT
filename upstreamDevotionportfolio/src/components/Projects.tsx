@@ -37,12 +37,12 @@ export function Projects() {
     const fetchProjects = async () => {
       try {
         setIsLoading(true);
-        const API_URL = "http://localhost:9090";
+        const API_URL = import.meta.env.VITE_API_URL || "http://localhost:9090";
         const response = await axios.get(`${API_URL}/api/v1/projects`);
         console.log(response);
-        
+
         setProjects(response.data);
-        
+
         setError(null);
       } catch (err) {
         console.error("Failed to fetch projects:", err);
@@ -101,11 +101,13 @@ export function Projects() {
                   </CardHeader>
                   <CardContent className="flex-grow">
                     <div className="flex flex-wrap gap-2">
-                      {project.technologiesUsed?.map((tech: string, techIndex: number) => (
-                      <Badge key={techIndex} variant="secondary">
-                        {tech}
-                      </Badge>
-                    ))}
+                      {project.technologiesUsed?.map(
+                        (tech: string, techIndex: number) => (
+                          <Badge key={techIndex} variant="secondary">
+                            {tech}
+                          </Badge>
+                        )
+                      )}
                     </div>
                   </CardContent>
                   <CardFooter className="flex gap-2">

@@ -25,14 +25,16 @@ export function Contact({ data }: ContactProps) {
   });
 
   const [isSending, setIsSending] = useState(false);
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:9090";
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSending(true); // Sending shuru
 
     try {
-      // Aapka backend 9090 port par chal raha hai
+      // 2. FIX: Hardcoded URL ko dynamic banayein
       const response = await axios.post(
-        "http://localhost:9090/api/v1/contact",
+        `${API_URL}/api/v1/contact`,
         formData
       );
 
@@ -47,7 +49,6 @@ export function Contact({ data }: ContactProps) {
       setIsSending(false); // Sending khatam
     }
   };
-
   const contactInfo = [
     {
       icon: Mail,

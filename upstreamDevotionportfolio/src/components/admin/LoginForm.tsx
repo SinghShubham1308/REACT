@@ -31,7 +31,7 @@ export function LoginForm({ onLogin, onClose }: LoginFormProps) {
 
     // 3. Mock logic (setTimeout) ko real API call se replace karein
     try {
-      const API_URL = "http://localhost:9090";
+      const API_URL = import.meta.env.VITE_API_URL || "http://localhost:9090";
 
       // Aapke AuthenticationController ke endpoint par call karein
       const response = await axios.post(
