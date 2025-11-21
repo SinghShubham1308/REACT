@@ -9,7 +9,7 @@ import {
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Button } from "../ui/button";
-import { Lock, X } from "lucide-react";
+import { Eye, EyeOff, Lock, X } from "lucide-react";
 import { toast } from "sonner";
 import axios from "axios";
 
@@ -24,7 +24,7 @@ export function LoginForm({ onLogin, onClose }: LoginFormProps) {
     password: "",
   });
   const [isLoading, setIsLoading] = useState(false);
-
+const [showPassword, setShowPassword] = useState(false);
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
@@ -98,9 +98,10 @@ export function LoginForm({ onLogin, onClose }: LoginFormProps) {
 
             <div className="space-y-2">
               <Label htmlFor="password">Password</Label>
+              <div className="relative">
               <Input
                 id="password"
-                type="password"
+                type={showPassword ? "text" : "password"}
                 value={credentials.password}
                 onChange={(e) =>
                   setCredentials({ ...credentials, password: e.target.value })
@@ -109,6 +110,21 @@ export function LoginForm({ onLogin, onClose }: LoginFormProps) {
                 required
                 autoComplete="current-password"
               />
+              <Button
+                  type="button"
+                  variant="ghost"
+                  size="icon"
+                  className="absolute right-0 top-0 h-full px-3 hover:bg-transparent"
+                  onClick={() => setShowPassword(!showPassword)}
+                  tabIndex={-1}
+                >
+                  {showPassword ? (
+                    <EyeOff className="h-4 w-4 text-muted-foreground" />
+                  ) : (
+                    <Eye className="h-4 w-4 text-muted-foreground" />
+                  )}
+                </Button>
+                </div>
             </div>
 
             <div className="pt-2">
@@ -116,12 +132,6 @@ export function LoginForm({ onLogin, onClose }: LoginFormProps) {
                 {isLoading ? "Logging in..." : "Login"}
               </Button>
             </div>
-
-            {/* <div className="text-center text-sm text-muted-foreground mt-4">
-              <p>Demo credentials:</p>
-              <p>Username: <code className="text-xs bg-accent px-2 py-1 rounded">admin</code></p>
-              <p>Password: <code className="text-xs bg-accent px-2 py-1 rounded">admin123</code></p>
-            </div> */}
           </form>
         </CardContent>
       </Card>

@@ -23,9 +23,9 @@ export function Hero({ data }: HeroProps) {
   };
 
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center pt-16 px-4">
+    <section id="home" className="min-h-screen flex items-center justify-center pt-16 px-4 relative">
       {/* Background Banner */}
-      <div className="absolute top-0 left-0 right-0 h-80 overflow-hidden">
+      <div className="absolute top-0 left-0 right-0 h-80 overflow-hidden z-0">
         {data.backgroundImage ? (
           <ImageWithFallback
             src={data.backgroundImage}
@@ -33,9 +33,9 @@ export function Hero({ data }: HeroProps) {
             className="w-full h-full object-cover"
           />
         ) : (
-          <div className="w-full h-full bg-linear-to-r from-primary/20 via-primary/10 to-primary/20" />
+          <div className="w-full h-full bg-gradient-to-r from-primary/20 via-primary/10 to-primary/20" />
         )}
-        <div className="absolute inset-0 bg-linear-to-b from-transparent to-background" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/60 to-background" />
       </div>
 
       <div className="container mx-auto text-center relative z-10">
@@ -64,12 +64,12 @@ export function Hero({ data }: HeroProps) {
             )}
           </motion.div>
 
-          <div className="inline-block mb-4 px-4 py-2 bg-primary/10 rounded-full">
+          <div className="inline-block mb-4 px-4 py-2 bg-primary/10 backdrop-blur-sm rounded-full">
             <span className="text-primary">{data.title}</span>
           </div>
           
           <motion.h1
-            className="mb-4"
+            className="mb-4 drop-shadow-lg"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
@@ -78,7 +78,7 @@ export function Hero({ data }: HeroProps) {
           </motion.h1>
           
           <motion.p
-            className="max-w-2xl mx-auto mb-8 text-muted-foreground"
+            className="max-w-2xl mx-auto mb-8 text-muted-foreground drop-shadow-md bg-background/40 backdrop-blur-sm p-4 rounded-lg"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
@@ -110,7 +110,7 @@ export function Hero({ data }: HeroProps) {
               href={data.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 hover:bg-accent rounded-lg transition-colors"
+              className="p-2 hover:bg-accent rounded-lg transition-colors bg-background/60 backdrop-blur-sm"
             >
               <Github className="h-5 w-5" />
             </a>
@@ -118,13 +118,14 @@ export function Hero({ data }: HeroProps) {
               href={data.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 hover:bg-accent rounded-lg transition-colors"
+              className="p-2 hover:bg-accent rounded-lg transition-colors
+              bg-background/60 backdrop-blur-sm"
             >
               <Linkedin className="h-5 w-5" />
             </a>
             <a
               href={`mailto:${data.email}`}
-              className="p-2 hover:bg-accent rounded-lg transition-colors"
+              className="p-2 hover:bg-accent rounded-lg transition-colors bg-background/60 backdrop-blur-sm"
             >
               <Mail className="h-5 w-5" />
             </a>
