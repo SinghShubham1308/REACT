@@ -12,6 +12,7 @@ import { Settings, LogOut, Loader2 } from "lucide-react";
 import { Toaster } from "sonner";
 import axios from "axios";
 
+
 interface PersonalData {
   name: string;
   title: string;
