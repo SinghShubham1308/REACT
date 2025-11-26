@@ -174,7 +174,7 @@ export function ProjectsEditor() {
                 onChange={(e) =>
                   setNewProject({ ...newProject, github: e.target.value })
                 }
-                required
+                
               />
             </div>
             <div className="space-y-2">
@@ -184,7 +184,7 @@ export function ProjectsEditor() {
                 onChange={(e) =>
                   setNewProject({ ...newProject, demo: e.target.value })
                 }
-                required
+                
               />
             </div>
             <Button type="submit" className="w-full" disabled={isSaving}>
