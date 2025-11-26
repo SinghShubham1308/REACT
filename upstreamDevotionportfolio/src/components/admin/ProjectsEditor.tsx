@@ -4,13 +4,20 @@ import { Label } from "../ui/label";
 import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
 import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
+import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
   CardDescription,
 } from "../ui/card";
-import { X, Plus, Loader2, Trash2 } from "lucide-react"; // Trash2 add karein
+import { Loader2, Trash2 } from "lucide-react"; // Trash2 add karein
 import axios from "axios";
 import { toast } from "sonner";
 
@@ -19,6 +26,7 @@ interface Project {
   id: number; // ID ab zaroori hai
   title: string;
   description: string;
+  type: "Personal" | "Professional";
   technologies: string[];
   github: string;
   demo: string;
@@ -37,6 +45,7 @@ export function ProjectsEditor() {
   >({
     title: "",
     description: "",
+    type: "Personal",
     github: "",
     demo: "",
   });
@@ -88,7 +97,13 @@ export function ProjectsEditor() {
 
       setProjects([...projects, response.data]); // List mein add karein
       // Form reset karein
-      setNewProject({ title: "", description: "", github: "", demo: "" });
+      setNewProject({
+        title: "",
+        description: "",
+        type: "Personal",
+        github: "",
+        demo: "",
+      });
       setTechInput("");
       toast.success("Project added successfully!");
     } catch (error) {
@@ -150,6 +165,26 @@ export function ProjectsEditor() {
               />
             </div>
             <div className="space-y-2">
+              <Label>Project Type</Label>
+              <Select
+                value={newProject.type}
+                onValueChange={(value: string) =>
+                  setNewProject({
+                    ...newProject,
+                    type: value as "Personal" | "Professional",
+                  })
+                }
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Select Type" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="Personal">Personal</SelectItem>
+                  <SelectItem value="Professional">Professional</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="space-y-2">
               <Label>Description</Label>
               <Textarea
                 value={newProject.description}
@@ -174,7 +209,6 @@ export function ProjectsEditor() {
                 onChange={(e) =>
                   setNewProject({ ...newProject, github: e.target.value })
                 }
-                
               />
             </div>
             <div className="space-y-2">
@@ -184,7 +218,6 @@ export function ProjectsEditor() {
                 onChange={(e) =>
                   setNewProject({ ...newProject, demo: e.target.value })
                 }
-                
               />
             </div>
             <Button type="submit" className="w-full" disabled={isSaving}>
