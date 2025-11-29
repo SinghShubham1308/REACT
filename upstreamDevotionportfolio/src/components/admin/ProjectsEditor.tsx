@@ -27,8 +27,8 @@ interface Project {
   title: string;
   description: string;
   projectType: "Personal" | "Professional";
-  technologies: string[];
-  github: string;
+  technology: string[];
+  githubLink: string;
   demo: string;
 }
 
@@ -41,12 +41,12 @@ export function ProjectsEditor() {
   const [isSaving, setIsSaving] = useState(false);
 
   const [newProject, setNewProject] = useState<
-    Omit<Project, "id" | "technologies">
+    Omit<Project, "id" | "technology">
   >({
     title: "",
     description: "",
     projectType: "Personal",
-    github: "",
+    githubLink: "",
     demo: "",
   });
   const [techInput, setTechInput] = useState(""); // Tech input ke liye alag se state
@@ -82,7 +82,7 @@ export function ProjectsEditor() {
 
     const projectToSave: NewProject = {
       ...newProject,
-      technologies: techInput
+      technology: techInput
         .split(",")
         .map((tech) => tech.trim())
         .filter(Boolean),
@@ -101,7 +101,7 @@ export function ProjectsEditor() {
         title: "",
         description: "",
         projectType: "Personal",
-        github: "",
+        githubLink: "",
         demo: "",
       });
       setTechInput("");
@@ -205,9 +205,9 @@ export function ProjectsEditor() {
             <div className="space-y-2">
               <Label>GitHub URL</Label>
               <Input
-                value={newProject.github}
+                value={newProject.githubLink}
                 onChange={(e) =>
-                  setNewProject({ ...newProject, github: e.target.value })
+                  setNewProject({ ...newProject, githubLink: e.target.value })
                 }
               />
             </div>
