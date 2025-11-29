@@ -26,7 +26,7 @@ interface Project {
   id: number; // ID ab zaroori hai
   title: string;
   description: string;
-  type: "Personal" | "Professional";
+  projectType: "Personal" | "Professional";
   technologies: string[];
   github: string;
   demo: string;
@@ -45,7 +45,7 @@ export function ProjectsEditor() {
   >({
     title: "",
     description: "",
-    type: "Personal",
+    projectType: "Personal",
     github: "",
     demo: "",
   });
@@ -100,7 +100,7 @@ export function ProjectsEditor() {
       setNewProject({
         title: "",
         description: "",
-        type: "Personal",
+        projectType: "Personal",
         github: "",
         demo: "",
       });
@@ -167,11 +167,11 @@ export function ProjectsEditor() {
             <div className="space-y-2">
               <Label>Project Type</Label>
               <Select
-                value={newProject.type}
+                value={newProject.projectType}
                 onValueChange={(value: string) =>
                   setNewProject({
                     ...newProject,
-                    type: value as "Personal" | "Professional",
+                    projectType: value as "Personal" | "Professional",
                   })
                 }
               >
@@ -257,6 +257,7 @@ export function ProjectsEditor() {
           ))
         )}
       </div>
+
     </div>
   );
 }
