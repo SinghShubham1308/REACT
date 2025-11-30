@@ -19,8 +19,8 @@ interface Project {
   title: string;
   description: string;
   technologiesUsed: string[];
-  github: string;
-  demo: string;
+  githubLink: string;
+  liveDemoLink: string;
 }
 
 export function Projects() {
@@ -113,7 +113,7 @@ export function Projects() {
                   <CardFooter className="flex gap-2">
                     <Button variant="outline" size="sm" asChild>
                       <a
-                        href={project.github}
+                        href={project.githubLink}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
@@ -123,7 +123,7 @@ export function Projects() {
                     </Button>
                     <Button size="sm" asChild>
                       <a
-                        href={project.demo}
+                        href={project.liveDemoLink}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
