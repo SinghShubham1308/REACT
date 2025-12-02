@@ -16,6 +16,7 @@ import axios from "axios";
 
 interface Project {
   id: number;
+  projectType:string;
   title: string;
   description: string;
   technologiesUsed: string[];
@@ -96,7 +97,7 @@ export function Projects() {
               >
                 <Card className="h-full flex flex-col hover:shadow-lg transition-all hover:-translate-y-1">
                   <CardHeader>
-                    <CardTitle>{project.title}</CardTitle>
+                    <CardTitle>{project.title }  [{project.projectType}]</CardTitle>
                     <CardDescription>{project.description}</CardDescription>
                   </CardHeader>
                   <CardContent className="grow">
